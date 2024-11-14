@@ -7,16 +7,17 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyClW3g_VPr6beB60bBe0d1UPGhLCmsLqJs",
-  authDomain: "pinterest-clone-c4.firebaseapp.com",
-  projectId: "pinterest-clone-c4",
-  storageBucket: "pinterest-clone-c4.firebasestorage.app",
-  messagingSenderId: "1032810132544",
-  appId: "1:1032810132544:web:82481c9e1b5fac588fdba5",
-  measurementId: "G-WE8CDBEQPQ"
+  apiKey: "AIzaSyDsVcT58u5fnibQqpN2sX_OEggbFp0bYqs",
+  authDomain: "tubeguruji-app.firebaseapp.com",
+  projectId: "tubeguruji-app",
+  storageBucket: "tubeguruji-app.appspot.com",
+  messagingSenderId: "887202519021",
+  appId: "1:887202519021:web:584d0b453269ff8df979e4",
+  measurementId: "G-GXD1PVGG7Z"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+ const app = initializeApp(firebaseConfig);
 
+ 
 export default app;
