@@ -5,7 +5,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import { collection, getDocs, getFirestore, query } from 'firebase/firestore';
 import app from './Shared/firebaseConfig';
 import { useEffect, useState } from 'react';
-import PinList from '@/components/Pins/PinList';
+import PinList from './components/pins/PinList';
 
 
 export default function Home() {

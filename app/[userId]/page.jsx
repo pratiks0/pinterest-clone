@@ -3,7 +3,7 @@ import React, { useEffect,useState } from 'react'
 import app from '../Shared/firebaseConfig';
 import UserInfo from './../components/UserInfo'
 import { collection, getDocs,getDoc,doc, getFirestore, query, where } from 'firebase/firestore'
-import PinList from '@/components/Pins/PinList';
+import PinList from '../components/pins/PinList';
 
 function Profile({params}) {
   const db=getFirestore(app);
