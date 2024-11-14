@@ -1,12 +1,36 @@
 "use client";
-import React from "react";
 import Image from "next/image";
-import { HiChat, HiSearch, HiBell } from "react-icons/hi";
+import React, { useEffect } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { HiSearch, HiBell, HiChat } from "react-icons/hi";
+import app from "./../Shared/firebaseConfig";
+import { useRouter } from "next/navigation";
 
 function Header() {
   const { data: session } = useSession();
   console.log(session);
+  const router = useRouter();
+  const db = getFirestore(app);
+
+  useEffect(() => {
+    saveUserInfo();
+  }, [session]);
+
+  const saveUserInfo = async () => {
+    if (session?.user && session.user.email) {
+      await setDoc(doc(db, "user", session.user.email), {
+        userName: session.user.name,
+        email: session.user.email,
+        userImage: session.user.image,
+      });
+    }
+  };
+
+  const profilePage=()=>{
+    router.push('/'+ session?.user.email)
+  }
+
   return (
     <div className="flex justify-between gap-3 sm:gap-4 md:gap-6 lg:gap-8 p-4 sm:p-5 md:p-6 items-center">
       <Image
@@ -21,7 +45,8 @@ function Header() {
         Home
       </button>
 
-      <button className="hover:bg-gray-300 font-semibold p-1 sm:p-2 px-3 sm:px-4 rounded-full text-sm sm:text-base">
+      <button className="hover:bg-gray-300 font-semibold p-1 sm:p-2 px-3 sm:px-4 rounded-full text-sm sm:text-base"
+      onClick={()=>router.push('/pin-builder')}>
         Create
       </button>
 
@@ -39,20 +64,23 @@ function Header() {
       <HiBell className="hover:bg-gray-300 rounded-full text-[25px] md:text-[60px] text-gray-500 cursor-pointer" />
       <HiChat className="hover:bg-gray-300 rounded-full text-[25px] md:text-[60px] text-gray-500 cursor-pointer" />
 
-      {session?.user? <Image
-        src="/man.png"
-        alt="man"
-        width={50}
-        height={50}
-        className="hover:bg-gray-300 p-2 rounded-full cursor-pointer"
-      /> :
-
-      <button
-        onClick={() => signIn()}
-        className="hover:bg-gray-300 font-semibold p-1 sm:p-2 px-3 sm:px-4 rounded-full text-sm sm:text-base"
-      >
-        Login
-      </button>}
+      {session?.user ? (
+        <Image
+          src="/man.png"
+          onClick={profilePage}
+          alt="man"
+          width={50}
+          height={50}
+          className="hover:bg-gray-300 p-2 rounded-full cursor-pointer"
+        />
+      ) : (
+        <button
+          onClick={() => signIn()}
+          className="hover:bg-gray-300 font-semibold p-1 sm:p-2 px-3 sm:px-4 rounded-full text-sm sm:text-base"
+        >
+          Login
+        </button>
+      )}
     </div>
   );
 }
